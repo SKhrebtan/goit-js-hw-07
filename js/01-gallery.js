@@ -29,16 +29,16 @@ function onFullSizePhotoViewing(e) {
   e.preventDefault();
 
   const photoEl = e.target;
-  if (photoEl.classList.contains('gallery__image') && photoEl.nodeName !== 'IMG') {
-    return
+  if (!(photoEl.classList.contains('gallery__image') && photoEl.nodeName === 'IMG')) {
+         return;     
   }
-
-   openLightboxModule(photoEl); 
+ 
+  openLightboxModule(photoEl);
   
 }
 
-function openLightboxModule(event) {
-  const instance = basicLightbox.create(`<img src="${event.dataset.source}" width="800" height="600">`,
+function openLightboxModule(img) {
+  const instance = basicLightbox.create(`<img src="${img.dataset.source}" width="800" height="600">`,
 
     {
       onShow: () => galleryContainer.addEventListener('keydown', onEscapeModalClosing),
@@ -46,7 +46,7 @@ function openLightboxModule(event) {
     });
 
   function onEscapeModalClosing (e) {
-    if (!(e.code === 'Escape'))
+    if (e.code !== 'Escape')
       return;
     
     instance.close();

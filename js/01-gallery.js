@@ -1,4 +1,5 @@
 import { galleryItems } from './gallery-items.js';
+// import * as basicLightbox from '../in';
 // Change code below this line
 
 const galleryContainer = document.querySelector('.gallery');
@@ -28,10 +29,28 @@ function createGalleryCollectionMarkup(galleryItems) {
 function onFullSizePhotoViewing(e) {
   e.preventDefault();
 
-  const photoEL = e.target;
+  const photoEl = e.target;
   if (e.target.nodeName !== 'IMG') {
     return;
   }
-  photoEL.src = photoEl.dataset.source;
-  console.log(photoEL.src);
+   
+  openLightboxModule(photoEl);
+  
 }
+
+function openLightboxModule(event) {
+  const instance = basicLightbox.create(`<img src="${event.dataset.source}">`)
+      
+console.log(instance)
+  instance.show()
+
+  window.addEventListener('keydown',  (event) => { if (event.code === 'Escape') { instance.close() } console.log(event)});
+}
+
+// function onEscapeModalClosing (e) {
+//   if (e.code === 'Escape'){ instance.close() }
+   
+//   console.log(e.code)
+//   console.log(instance)
+// }
+

@@ -1,5 +1,4 @@
 import { galleryItems } from './gallery-items.js';
-// import * as basicLightbox from '../in';
 // Change code below this line
 
 const galleryContainer = document.querySelector('.gallery');
@@ -30,27 +29,35 @@ function onFullSizePhotoViewing(e) {
   e.preventDefault();
 
   const photoEl = e.target;
-  if (e.target.nodeName !== 'IMG') {
-    return;
+  if (photoEl.classList.contains('gallery__image') && photoEl.nodeName !== 'IMG') {
+    return
   }
-   
-  openLightboxModule(photoEl);
+
+   openLightboxModule(photoEl); 
   
 }
 
 function openLightboxModule(event) {
-  const instance = basicLightbox.create(`<img src="${event.dataset.source}">`)
-      
-console.log(instance)
-  instance.show()
+  const instance = basicLightbox.create(`<img src="${event.dataset.source}" width="800" height="600">`,
 
-  window.addEventListener('keydown',  (event) => { if (event.code === 'Escape') { instance.close() } console.log(event)});
-}
+    {
+      onShow: () => galleryContainer.addEventListener('keydown', onEscapeModalClosing),
+      onClose: () => galleryContainer.removeEventListener('keydown', onEscapeModalClosing),
+    });
 
-// function onEscapeModalClosing (e) {
-//   if (e.code === 'Escape'){ instance.close() }
-   
-//   console.log(e.code)
-//   console.log(instance)
-// }
+  function onEscapeModalClosing (e) {
+    if (!(e.code === 'Escape'))
+      return;
+    
+    instance.close();
+
+  };
+
+  instance.show();
+
+};
+
+
+
+
 

@@ -18,8 +18,8 @@ function createGalleryCollectionMarkup(galleryItems) {
       <img class="gallery__image" src="${preview}" alt="${description}" />
    </a>
 </li>`;
-  }).
-    join('');
+  })
+    .join('');
 };
 
 const lightbox = new SimpleLightbox('.gallery a',

@@ -41,8 +41,8 @@ function openLightboxModule(img) {
   const instance = basicLightbox.create(`<img src="${img.dataset.source}" width="800" height="600">`,
 
     {
-      onShow: () => galleryContainer.addEventListener('keydown', onEscapeModalClosing),
-      onClose: () => galleryContainer.removeEventListener('keydown', onEscapeModalClosing),
+      onShow: () => document.addEventListener('keydown', onEscapeModalClosing),
+      onClose: () => document.removeEventListener('keydown', onEscapeModalClosing),
     });
 
   function onEscapeModalClosing (e) {
